@@ -1,12 +1,11 @@
 import { AxiosInstance } from "axios"
 import { UnionToIntersection } from "../utils/helperTypes"
 import { queryMapToString } from "../utils/query"
+import { AbstractService } from "."
 
-export class Products {
-  private client: AxiosInstance
-
+export class ProductService extends AbstractService {
   constructor(client: AxiosInstance) {
-    this.client = client
+    super(client)
   }
 
   public async getOne<E extends Embed[]>(productNo: number, options: ProductGetOneOptions<E>) {
@@ -25,6 +24,7 @@ export class Products {
     return res.data.products
   }
 }
+
 
 
 type ProductGetOneOptions<E extends Embed[]> = {
@@ -277,7 +277,7 @@ interface AdditionalOption {
 }
 
 interface AttachedFileOption {
-  // 첨부파일 옵션 관련 필드 정의
+  
 }
 
 interface PointsAmount {
@@ -377,16 +377,3 @@ type EmbedIncludes<E extends Embed[]> = UnionToIntersection<
 >
 
 type ProductWithEmbed<E extends Embed[]> = Product & EmbedIncludes<E>
-
-
-function fetchProduct<E extends Embed[]>(embeds: E): Promise<ProductWithEmbed<E>> {
-  // 실제 구현에서는 embeds를 쿼리 스트링에 추가하여 API 요청을 수행합니다.
-  // 여기서는 타입 안전성을 보여주기 위한 예시입니다.
-  
-  return fetch('/api/product?embed=' + embeds.join(','))
-    .then(response => response.json())
-    // 타입 단언을 사용하여 응답을 ApiResponse<E>로 변환
-    .then(data => data as ProductWithEmbed<E>);
-}
-
-

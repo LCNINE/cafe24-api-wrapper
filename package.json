@@ -1,14 +1,15 @@
 {
   "name": "cafe24-api-wrapper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["cafe24", "api", "wrapper", "typescript"],
+  "author": "PauseB",
   "license": "ISC",
   "description": "Cafe24 API를 간편하게 사용할 수 있는 래퍼 라이브러리입니다.",
+  "files": ["lib", "README.md"],
   "devDependencies": {
     "typescript": "^5.6.2"
   },

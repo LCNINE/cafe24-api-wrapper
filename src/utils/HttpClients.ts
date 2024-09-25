@@ -1,19 +1,39 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { delay } from "./util"
 
-const MAX_RETRY = 2
+
 
 export class HttpClient {
-  private client: AxiosInstance
+  protected client: AxiosInstance
 
   constructor(config: AxiosRequestConfig) {
     this.client = axios.create(config)
-    this.setupInterceptors()
   }
 
   public get instance(): AxiosInstance {
     return this.client
   }
+}
 
+
+const MAX_RETRY = 2
+interface AdminClientConfig {
+  mallId: string,
+  getAccessToken: () => Promise<string>,
+}
+export class AdminClient extends HttpClient {
+  constructor(cafe24Config: AdminClientConfig) {
+    super({
+      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/admin`,
+      headers: {
+        "Content-Type": "application/json",
+        "X-Cafe24-Api-Version": "2024-06-01",
+      },
+    })
+    this.setupInterceptors()
+    this.getAccessToken = cafe24Config.getAccessToken
+  }
+  
   private setupInterceptors() {
     this.client.interceptors.response.use(
       (response) => response,
@@ -40,7 +60,7 @@ export class HttpClient {
     originalRequest._retryCount += 1
 
     if (response.status === 429) { // 요청 속도가 너무 빠름
-      await this.delay(500)
+      await delay(500)
       return this.client(originalRequest)
     } 
     else if (response.status === 401) { // 엑세스 토큰이 잘못됨
@@ -56,15 +76,25 @@ export class HttpClient {
     return Promise.reject(new Error(errorResponse.error.message))
   }
 
-  private delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-  }
-
   private getAccessToken: () => Promise<string> = async () => {
     throw new Error('getAccessToken 함수가 설정되지 않았습니다.')
   }
+}
 
-  public setAccessTokenGetter(getAccessToken: () => Promise<string>) {
-    this.getAccessToken = getAccessToken
+
+interface OAuthClientConfig {
+  mallId: string,
+  clientId: string,
+  clientSecret: string,
+}
+export class OAuthClient extends HttpClient {
+  constructor(cafe24Config: OAuthClientConfig) {
+    super({
+      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/oauth`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": `Basic ${btoa(cafe24Config.clientId + ":" + cafe24Config.clientSecret)}`
+      }
+    })
   }
 }

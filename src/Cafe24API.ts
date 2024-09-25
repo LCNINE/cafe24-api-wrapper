@@ -1,30 +1,37 @@
-import { Products } from "./endpoints/Products"
-import { HttpClient } from "./utils/HttpClient"
+import { OAuthService } from "./services/OAuth"
+import { ProductService } from "./services/Products"
+import { AdminClient, HttpClient, OAuthClient } from "./utils/HttpClients"
 
 interface Cafe24APIOptions {
   mallId: string,
   getAccessToken: () => Promise<string>,
+  clientId: string,
+  clientSecret: string,
 }
 
 export class Cafe24API {
-  private httpClient: HttpClient
+  private adminClient: AdminClient
+  private oAuthClient: OAuthClient
 
-  public Products: Products
+  public Products: ProductService
+  public OAuth: OAuthService
 
   constructor(options: Cafe24APIOptions) {
-    const baseURL = `https://${options.mallId}.cafe24api.com/api/v2/admin`
-
-    this.httpClient = new HttpClient({
-      baseURL,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Cafe24-Api-Version": "2024-06-01",
-      },
+    this.adminClient = new AdminClient({
+      mallId: options.mallId,
+      getAccessToken: options.getAccessToken,
     })
-    this.httpClient.setAccessTokenGetter(options.getAccessToken)
 
-    const clientInstance = this.httpClient.instance
+    this.oAuthClient = new OAuthClient({
+      mallId: options.mallId,
+      clientId: options.clientId,
+      clientSecret: options.clientSecret,
+    })
 
-    this.Products = new Products(clientInstance)
+    const adminClientInstance = this.adminClient.instance
+
+    this.Products = new ProductService(adminClientInstance)
+
+    this.OAuth = new OAuthService(this.oAuthClient.instance)
   }
 }
