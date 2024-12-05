@@ -1,17 +1,28 @@
 {
-  "name": "cafe24-api-wrapper",
-  "version": "0.0.2",
-  "main": "index.js",
+  "name": "cafe24-api-wrapper-lib",
+  "version": "0.0.10",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
-  "keywords": ["cafe24", "api", "wrapper", "typescript"],
+  "keywords": [
+    "cafe24",
+    "api",
+    "wrapper",
+    "typescript"
+  ],
   "author": "PauseB",
   "license": "ISC",
   "description": "Cafe24 API를 간편하게 사용할 수 있는 래퍼 라이브러리입니다.",
-  "files": ["lib", "README.md"],
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "devDependencies": {
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "@types/node": "^20.x"
   },
   "dependencies": {
     "axios": "^1.7.7"

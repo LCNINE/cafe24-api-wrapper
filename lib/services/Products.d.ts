@@ -5,6 +5,18 @@ export declare class ProductService extends AbstractService {
     constructor(client: AxiosInstance);
     getOne<E extends Embed[]>(productNo: number, options: ProductGetOneOptions<E>): Promise<ProductWithEmbed<E>>;
     getList<E extends Embed[]>(options: ProductGetListOptions<E>): Promise<ProductWithEmbed<E>[]>;
+    /**
+     * 상품 재고 조회
+     */
+    getInventory(productNo: number): Promise<ProductInventory[]>;
+    /**
+     * 상품 옵션 조회
+     */
+    getOptions(productNo: number): Promise<ProductDetailOption>;
+    /**
+     * 상품 품절 여부 조회
+     */
+    getSoldoutStatus(productNo: number): Promise<ProductSoldout>;
 }
 type ProductGetOneOptions<E extends Embed[]> = {
     embed?: E;
@@ -47,18 +59,18 @@ type ProductGetListOptions<E extends Embed[]> = {
     stock_safety_min?: number;
     product_weight?: number | number[];
     classification_code?: string | string[];
-    use_inventory?: 'T' | 'F';
-    category_unapplied?: 'T';
-    include_sub_category?: 'T';
+    use_inventory?: "T" | "F";
+    category_unapplied?: "T";
+    include_sub_category?: "T";
     additional_information_key?: string;
     additional_information_value?: string;
-    approve_status?: 'N' | 'E' | 'C' | 'R' | 'I';
+    approve_status?: "N" | "E" | "C" | "R" | "I";
     since_product_no?: number;
-    product_bundle?: 'T' | 'F';
+    product_bundle?: "T" | "F";
     option_type?: string | string[];
-    market_sync?: 'T' | 'F';
-    sort?: 'created_date' | 'updated_date' | 'product_name';
-    order?: 'asc' | 'desc';
+    market_sync?: "T" | "F";
+    sort?: "created_date" | "updated_date" | "product_name";
+    order?: "asc" | "desc";
     offset?: number;
     limit?: number;
 };
@@ -78,53 +90,53 @@ interface Product {
     price: string;
     retail_price: string;
     supply_price: string;
-    display: 'T' | 'F';
+    display: "T" | "F";
     description: string;
     mobile_description: string;
-    separated_mobile_description: 'T' | 'F';
-    translated: 'T' | 'F';
+    separated_mobile_description: "T" | "F";
+    translated: "T" | "F";
     translated_description: string;
     payment_info: string;
     shipping_info: string;
     exchange_info: string;
     service_info: string;
     product_tax_type_text: string | null;
-    set_product_type: 'C' | 'S' | null;
+    set_product_type: "C" | "S" | null;
     country_hscode: any;
-    selling: 'T' | 'F';
-    product_condition: 'N' | 'B' | 'R' | 'U' | 'E' | 'F' | 'S';
+    selling: "T" | "F";
+    product_condition: "N" | "B" | "R" | "U" | "E" | "F" | "S";
     product_used_month: number;
     simple_description: string;
     summary_description: string;
     product_tag: string;
     margin_rate: string;
-    tax_type: 'A' | 'B' | 'C';
+    tax_type: "A" | "B" | "C";
     tax_amount: number;
     price_content: string | null;
-    buy_limit_by_product: 'T' | 'F';
-    buy_limit_type: 'N' | 'M' | 'F' | 'O' | 'D' | null;
-    repurchase_restriction: 'T' | 'F';
+    buy_limit_by_product: "T" | "F";
+    buy_limit_type: "N" | "M" | "F" | "O" | "D" | null;
+    repurchase_restriction: "T" | "F";
     buy_group_list: number[] | null;
-    single_purchase_restriction: 'T' | 'F';
-    buy_unit_type: 'P' | 'O';
+    single_purchase_restriction: "T" | "F";
+    buy_unit_type: "P" | "O";
     buy_unit: number;
-    order_quantity_limit_type: 'P' | 'O';
+    order_quantity_limit_type: "P" | "O";
     minimum_quantity: number;
     maximum_quantity: number;
-    points_by_product: 'T' | 'F';
-    points_setting_by_payment: 'B' | 'C' | null;
+    points_by_product: "T" | "F";
+    points_setting_by_payment: "B" | "C" | null;
     points_amount: PointsAmount[] | null;
-    except_member_points: 'T' | 'F';
+    except_member_points: "T" | "F";
     product_volume: ProductVolume;
-    adult_certification: 'T' | 'F';
+    adult_certification: "T" | "F";
     detail_image: string;
     list_image: string;
     tiny_image: string;
     small_image: string;
-    has_option: 'T' | 'F';
-    option_type: 'C' | 'S' | 'E' | 'F';
-    use_naverpay: 'T' | 'F' | null;
-    naverpay_type: 'C' | 'O' | null;
+    has_option: "T" | "F";
+    option_type: "C" | "S" | "E" | "F";
+    use_naverpay: "T" | "F" | null;
+    naverpay_type: "C" | "O" | null;
     manufacturer_code: string;
     trend_code: string;
     brand_code: string;
@@ -132,7 +144,7 @@ interface Product {
     made_date: string;
     release_date: string;
     expiration_date: ExpirationDate;
-    origin_classification: 'F' | 'T' | 'E';
+    origin_classification: "F" | "T" | "E";
     origin_place_no: number;
     origin_place_value: string;
     made_in_code: string;
@@ -141,13 +153,13 @@ interface Product {
     hscode: string;
     product_weight: string;
     product_material: string;
-    shipping_fee_by_product: 'T' | 'F';
+    shipping_fee_by_product: "T" | "F";
     shipping_method: string | null;
-    prepaid_shipping_fee: 'C' | 'P' | 'B' | null;
+    prepaid_shipping_fee: "C" | "P" | "B" | null;
     shipping_period: ShippingPeriod | null;
-    shipping_scope: 'A' | 'C' | 'B';
+    shipping_scope: "A" | "C" | "B";
     shipping_area: string | null;
-    shipping_fee_type: 'T' | 'R' | 'M' | 'D' | 'W' | 'C' | 'N' | null;
+    shipping_fee_type: "T" | "R" | "M" | "D" | "W" | "C" | "N" | null;
     shipping_rates: ShippingRate[] | null;
     created_date: string;
     updated_date: string;
@@ -155,36 +167,68 @@ interface Product {
     clearance_category_eng: string;
     clearance_category_kor: string;
     clearance_category_code: string;
-    cloth_fabric: 'woven' | 'knit' | null;
+    cloth_fabric: "woven" | "knit" | null;
     origin_place_code: number;
     list_icon: ListIcon;
     additional_information: AdditionalInformation[];
-    image_upload_type: 'A' | 'B' | 'C';
+    image_upload_type: "A" | "B" | "C";
     classification_code: string;
     main: number[] | null;
     relational_product: RelationalProduct[];
-    select_one_by_option: 'T' | 'F';
-    approve_status: 'N' | 'E' | 'C' | 'R' | 'I' | '';
-    edibot: 'T' | 'F';
+    select_one_by_option: "T" | "F";
+    approve_status: "N" | "E" | "C" | "R" | "I" | "";
+    edibot: "T" | "F";
     edibot_code: string | null;
-    sold_out: 'T' | 'F';
+    sold_out: "T" | "F";
     additional_price: string;
     translated_additional_description: string;
-    exposure_limit_type: 'A' | 'M';
+    exposure_limit_type: "A" | "M";
     exposure_group_list: number[] | null;
+}
+interface ProductInventory {
+    shop_no: number;
+    product_no: number;
+    variant_code: string;
+    quantity: number;
+    safety_inventory: number;
+    display_soldout: "T" | "F";
+    use_inventory: "T" | "F";
+    important_inventory: "A" | "B" | "C";
+}
+interface ProductDetailOption {
+    has_option: "T" | "F";
+    option_type: "C" | "S" | "E" | "F";
+    option_list_type: "S" | "E";
+    options: {
+        option_name: string;
+        option_value: {
+            option_text: string;
+            value_no: number;
+            additional_amount: string;
+        }[];
+    }[];
+}
+interface ProductSoldout {
+    shop_no: number;
+    product_no: number;
+    soldout: "T" | "F";
+    variants: {
+        variant_code: string;
+        soldout: "T" | "F";
+    }[];
 }
 interface Variant {
     shop_no: number;
     variant_code: string;
     options: VariantOption[];
     custom_variant_code: string;
-    display: 'T' | 'F';
-    selling: 'T' | 'F';
+    display: "T" | "F";
+    selling: "T" | "F";
     additional_amount: string;
-    use_inventory: 'T' | 'F';
-    important_inventory: 'A' | 'B' | 'C';
-    inventory_control_type: 'A' | 'B' | 'C';
-    display_soldout: 'T' | 'F';
+    use_inventory: "T" | "F";
+    important_inventory: "A" | "B" | "C";
+    inventory_control_type: "A" | "B" | "C";
+    display_soldout: "T" | "F";
     quantity: number;
     safety_inventory: number;
 }
@@ -199,34 +243,34 @@ interface Seo {
     meta_description: string;
     meta_keywords: string;
     meta_alt: string;
-    search_engine_exposure: 'T' | 'F';
+    search_engine_exposure: "T" | "F";
 }
 interface Category {
     category_no: number;
-    recommend: 'T' | 'F';
-    new: 'T' | 'F';
+    recommend: "T" | "F";
+    new: "T" | "F";
 }
 interface Tags {
     shop_no: number;
     tags: string[];
 }
 interface Options {
-    has_option: 'T' | 'F';
-    option_type: 'C' | 'S' | 'E' | 'F';
-    option_list_type: 'S' | 'E';
+    has_option: "T" | "F";
+    option_type: "C" | "S" | "E" | "F";
+    option_list_type: "S" | "E";
     option_preset_code: string;
     options: ProductOption[];
-    select_one_by_option: 'T' | 'F';
+    select_one_by_option: "T" | "F";
     option_preset_name: string | null;
-    use_additional_option: 'T' | 'F';
+    use_additional_option: "T" | "F";
     additional_options: AdditionalOption[];
-    use_attached_file_option: 'T' | 'F';
+    use_attached_file_option: "T" | "F";
     attached_file_option: AttachedFileOption[];
 }
 interface ProductOption {
     option_code: string;
     option_name: string;
-    required_option: 'T' | 'F';
+    required_option: "T" | "F";
     option_display_type: string;
     option_value: OptionValue[];
 }
@@ -249,7 +293,7 @@ interface PointsAmount {
     points_rate: string;
 }
 interface ProductVolume {
-    use_product_volume: 'T' | 'F';
+    use_product_volume: "T" | "F";
     product_width?: string;
     product_height?: string;
     product_length?: string;
@@ -283,7 +327,7 @@ interface AdditionalInformation {
 }
 interface RelationalProduct {
     product_no: number;
-    interrelated: 'T' | 'F';
+    interrelated: "T" | "F";
 }
 interface AdditionalImage {
     big: string;
@@ -306,7 +350,7 @@ interface DiscountPrice {
     mobile_discount_price: string;
     app_discount_price: string;
 }
-type Embed = 'variants' | 'options' | 'memos' | 'hits' | 'seo' | 'tags' | 'additionalimages' | 'decorationimages' | 'discountprice';
+type Embed = "variants" | "options" | "memos" | "hits" | "seo" | "tags" | "additionalimages" | "decorationimages" | "discountprice";
 type EmbedFields = {
     variants: {
         variants: Variant[];
