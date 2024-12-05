@@ -14,6 +14,7 @@ export class ProductService extends AbstractService {
   ) {
     const queryMap = new Map(Object.entries(options));
     const url = `/products/${productNo}` + queryMapToString(queryMap);
+    console.log('getOne이 가리키는url:',url)
 
     const res = await this.client.get<{ product: ProductWithEmbed<E> }>(url);
     return res.data.product;

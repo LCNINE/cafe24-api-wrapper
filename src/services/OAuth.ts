@@ -22,7 +22,7 @@ export class OAuthService extends AbstractService {
     this.tokenData = { accessToken, refreshToken, expiresAt };
   }
 
-  private async refreshToken() {
+  private async refreshAccessToken() {
     if (!OAuthService.tokenData?.refreshToken) {
       throw new Error("Refresh token is missing.");
     }
@@ -54,7 +54,7 @@ export class OAuthService extends AbstractService {
       new Date().getTime() >=
         OAuthService.tokenData.expiresAt - OAuthService.tokenExpiryBuffer
     ) {
-      await this.refreshToken();
+      await this.refreshAccessToken();
     }
 
     return this.client.request({

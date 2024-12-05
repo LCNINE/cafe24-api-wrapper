@@ -7,7 +7,7 @@ export declare class OAuthService extends AbstractService {
     refreshToken: string,
     expiresAt: number
   ): void;
-  refreshToken(refreshToken: string): Promise<Cafe24AccessToken>;
+  refreshAccessToken(refreshToken: string): Promise<Cafe24AccessToken>;
   setT;
 }
 type Cafe24AccessToken = {
