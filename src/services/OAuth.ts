@@ -1,18 +1,19 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 import { AbstractService } from ".";
 
 export class OAuthService extends AbstractService {
-  constructor(client: AxiosInstance) {
-    super(client);
-  }
-
   private static tokenData: {
     accessToken: string;
     refreshToken: string;
     expiresAt: number;
   } | null = null;
 
-  // 토큰 데이터 설정
+  private static tokenExpiryBuffer = 300000; // 5분 (밀리초)
+
+  constructor(client: AxiosInstance) {
+    super(client);
+  }
+
   public static setTokenData(
     accessToken: string,
     refreshToken: string,
@@ -21,31 +22,37 @@ export class OAuthService extends AbstractService {
     this.tokenData = { accessToken, refreshToken, expiresAt };
   }
 
-  // 토큰 갱신 로직
   private async refreshToken() {
     if (!OAuthService.tokenData?.refreshToken) {
       throw new Error("Refresh token is missing.");
     }
 
-    const res = await this.client.post<Cafe24AccessToken>("/token", {
-      grant_type: "refresh_token",
-      refresh_token: OAuthService.tokenData.refreshToken,
-    });
+    try {
+      const res = await this.client.post<Cafe24AccessToken>("/token", {
+        grant_type: "refresh_token",
+        refresh_token: OAuthService.tokenData.refreshToken,
+      });
 
-    const newTokenData = res.data;
-    OAuthService.setTokenData(
-      newTokenData.access_token,
-      newTokenData.refresh_token,
-      new Date(newTokenData.expires_at).getTime()
-    );
-    return newTokenData.access_token;
+      const newTokenData = res.data;
+      OAuthService.setTokenData(
+        newTokenData.access_token,
+        newTokenData.refresh_token,
+        new Date(newTokenData.expires_at).getTime()
+      );
+
+      console.log("Access token refreshed successfully.");
+      return newTokenData.access_token;
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+      throw new Error("Unable to refresh token. Please reauthenticate.");
+    }
   }
 
-  // 토큰 자동 갱신 포함한 API 호출
-  public async requestWithAuth(config: any) {
+  public async requestWithAuth(config: AxiosRequestConfig) {
     if (
       !OAuthService.tokenData ||
-      new Date().getTime() >= OAuthService.tokenData.expiresAt
+      new Date().getTime() >=
+        OAuthService.tokenData.expiresAt - OAuthService.tokenExpiryBuffer
     ) {
       await this.refreshToken();
     }
