@@ -12,11 +12,14 @@ export class ProductService extends AbstractService {
     productNo: number,
     options: ProductGetOneOptions<E>
   ) {
+    console.log('getOne1')
     const queryMap = new Map(Object.entries(options));
+    console.log('getOne.queryMap: ', queryMap)
     const url = `/products/${productNo}` + queryMapToString(queryMap);
-    console.log('getOne이 가리키는url:',url)
+    console.log('getOne.url: ', url)
 
     const res = await this.client.get<{ product: ProductWithEmbed<E> }>(url);
+    console.log('getOne.res: ', res)
     return res.data.product;
   }
 
