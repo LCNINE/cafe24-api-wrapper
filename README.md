@@ -1,4 +1,4 @@
-# cafe24-api-wrapper
+# cafe24-api-typescript
  
 카페24 API를 타입스크립트 환경에서 편리하게 사용할 수 있도록 하는 라이브러리입니다.
 

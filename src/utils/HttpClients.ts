@@ -24,7 +24,7 @@ interface AdminClientConfig {
 export class AdminClient extends HttpClient {
   constructor(cafe24Config: AdminClientConfig) {
     super({
-      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/admin`,
+      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/admin/`,
       headers: {
         "Content-Type": "application/json",
         "X-Cafe24-Api-Version": "2024-06-01",
@@ -90,7 +90,7 @@ interface OAuthClientConfig {
 export class OAuthClient extends HttpClient {
   constructor(cafe24Config: OAuthClientConfig) {
     super({
-      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/oauth`,
+      baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/oauth/`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Authorization": `Basic ${btoa(cafe24Config.clientId + ":" + cafe24Config.clientSecret)}`

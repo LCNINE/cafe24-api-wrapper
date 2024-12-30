@@ -1,24 +1,24 @@
 import { AxiosInstance } from "axios"
-import { UnionToIntersection } from "../utils/helperTypes"
-import { queryMapToString } from "../utils/query"
-import { AbstractService } from "."
+import { UnionToIntersection } from "../../utils/helperTypes"
+import { queryMapToString } from "../../utils/query"
+import { AbstractService } from ".."
 
-export class ProductService extends AbstractService {
+export class ProductsService extends AbstractService {
   constructor(client: AxiosInstance) {
     super(client)
   }
 
-  public async getOne<E extends Embed[]>(productNo: number, options: ProductGetOneOptions<E>) {
+  public async retrieveAProductResource<E extends Embed[]>(productNo: number, options: ProductGetOneOptions<E>) {
     const queryMap = new Map(Object.entries(options))
-    const url = `/products/${productNo}` + queryMapToString(queryMap)
+    const url = `products/${productNo}` + queryMapToString(queryMap)
 
     const res = await this.client.get<{ product: ProductWithEmbed<E> }>(url)
     return res.data.product
   }
 
-  public async getList<E extends Embed[]>(options: ProductGetListOptions<E>) {
+  public async retrieveAListOfProducts<E extends Embed[]>(options: ProductGetListOptions<E>) {
     const queryMap = new Map(Object.entries(options))
-    const url = `/products` + queryMapToString(queryMap)
+    const url = `products` + queryMapToString(queryMap)
 
     const res = await this.client.get<{ products: ProductWithEmbed<E>[] }>(url)
     return res.data.products
