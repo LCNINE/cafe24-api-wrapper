@@ -1,5 +1,5 @@
 import { OAuthService } from "./services/OAuth";
-import { ProductService } from "./services/Products";
+import { ProductsService } from "./services/Product/Products";
 interface Cafe24APIOptions {
     mallId: string;
     getAccessToken: () => Promise<string>;
@@ -9,8 +9,8 @@ interface Cafe24APIOptions {
 export declare class Cafe24API {
     private adminClient;
     private oAuthClient;
-    Products: ProductService;
-    OAuth: OAuthService;
+    products: ProductsService;
+    oAuth: OAuthService;
     constructor(options: Cafe24APIOptions);
 }
 export {};
