@@ -20,6 +20,7 @@ const MAX_RETRY = 2
 interface AdminClientConfig {
   mallId: string,
   getAccessToken: () => Promise<string>,
+  apiVersion: string,
 }
 export class AdminClient extends HttpClient {
   constructor(cafe24Config: AdminClientConfig) {
@@ -27,7 +28,7 @@ export class AdminClient extends HttpClient {
       baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/admin/`,
       headers: {
         "Content-Type": "application/json",
-        "X-Cafe24-Api-Version": "2024-06-01",
+        "X-Cafe24-Api-Version": cafe24Config.apiVersion,
       },
     })
     this.setupInterceptors()
@@ -35,6 +36,17 @@ export class AdminClient extends HttpClient {
   }
   
   private setupInterceptors() {
+    this.client.interceptors.request.use(
+      (config) => {
+        if (config.headers["Authorization"]) {
+          return config
+        }
+        return this.getAccessToken().then((accessToken) => {
+          config.headers["Authorization"] = `Bearer ${accessToken}`
+          return config
+        })
+      }
+    )
     this.client.interceptors.response.use(
       (response) => response,
       (error) => this.handleError(error)

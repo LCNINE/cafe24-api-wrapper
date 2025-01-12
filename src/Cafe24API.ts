@@ -7,6 +7,7 @@ interface Cafe24APIOptions {
   getAccessToken: () => Promise<string>,
   clientId: string,
   clientSecret: string,
+  apiVersion: string,
 }
 
 export class Cafe24API {
@@ -20,6 +21,7 @@ export class Cafe24API {
     this.adminClient = new AdminClient({
       mallId: options.mallId,
       getAccessToken: options.getAccessToken,
+      apiVersion: options.apiVersion,
     })
 
     this.oAuthClient = new OAuthClient({

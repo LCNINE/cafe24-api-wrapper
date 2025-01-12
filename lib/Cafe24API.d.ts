@@ -5,6 +5,7 @@ interface Cafe24APIOptions {
     getAccessToken: () => Promise<string>;
     clientId: string;
     clientSecret: string;
+    apiVersion: string;
 }
 export declare class Cafe24API {
     private adminClient;

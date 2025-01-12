@@ -7,6 +7,7 @@ export declare class HttpClient {
 interface AdminClientConfig {
     mallId: string;
     getAccessToken: () => Promise<string>;
+    apiVersion: string;
 }
 export declare class AdminClient extends HttpClient {
     constructor(cafe24Config: AdminClientConfig);
