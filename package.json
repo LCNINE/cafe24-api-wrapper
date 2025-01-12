@@ -1,7 +1,8 @@
 {
   "name": "cafe24-api-typescript",
-  "version": "0.0.4",
-  "main": "index.js",
+  "version": "0.0.6",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc"
   },

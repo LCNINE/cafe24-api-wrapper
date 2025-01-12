@@ -69,7 +69,7 @@ export class AdminClient extends HttpClient {
         originalRequest.headers!["Authorization"] = `Bearer ${newAccessToken}`
         return this.client(originalRequest) 
       } catch (tokenError) {
-        return Promise.reject(error)
+        return Promise.reject(tokenError)
       }
     }
 

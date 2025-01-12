@@ -294,7 +294,6 @@ export interface ListIcon {
 
 export interface AdditionalInformation {
   key: string,
-  name: string,
   value: string,
 }
 
@@ -384,6 +383,7 @@ export interface CreateProductRequest {
     naverpay_type?: 'C' | 'O';
     use_kakaopay?: 'T' | 'F';
     image_upload_type?: 'A' | 'B' | 'C';
+    additional_information?: AdditionalInformation[];
     detail_image?: string;
     manufacturer_code?: string;
     supplier_code?: string;
@@ -469,115 +469,7 @@ export interface CreateProductRequest {
   };
 }
 export interface CreateProductResponse {
-  product: {
-    shop_no: number;
-    product_no: number;
-    category: Array<{
-      category_no: number;
-      recommend: 'T' | 'F';
-      new: 'T' | 'F';
-    }>;
-    product_code: string;
-    custom_product_code: string;
-    product_name: string;
-    eng_product_name: string;
-    internal_product_name: string;
-    model_name: string;
-    price_excluding_tax: string;
-    price: string;
-    retail_price: string;
-    supply_price: string;
-    display: 'T' | 'F';
-    selling: 'T' | 'F';
-    product_condition: 'N' | 'B' | 'R' | 'U' | 'E' | 'F' | 'S';
-    product_used_month?: number;
-    price_content?: string;
-    buy_limit_by_product?: 'T' | 'F';
-    buy_limit_type?: 'N' | 'M' | 'F' | 'O' | 'D';
-    buy_group_list?: number[];
-    buy_member_id_list?: string[];
-    repurchase_restriction?: 'T' | 'F';
-    single_purchase_restriction?: 'T' | 'F';
-    buy_unit_type?: 'P' | 'O';
-    buy_unit?: number;
-    order_quantity_limit_type?: 'P' | 'O';
-    minimum_quantity?: number;
-    maximum_quantity?: number;
-    points_by_product?: 'T' | 'F';
-    points_setting_by_payment?: 'B' | 'C';
-    points_amount?: Array<{
-      payment_method: string;
-      points_rate: string;
-    }>;
-    except_member_points?: 'T' | 'F';
-    product_volume?: {
-      use_product_volume: 'T' | 'F';
-      product_width?: string;
-      product_height?: string;
-      product_length?: string;
-    };
-    description?: string;
-    mobile_description?: string;
-    translated_description?: string;
-    payment_info?: string;
-    shipping_info?: string;
-    exchange_info?: string;
-    service_info?: string;
-    simple_description?: string;
-    summary_description?: string;
-    detail_image?: string;
-    has_option?: 'T' | 'F';
-    soldout_message?: string;
-    use_naverpay?: 'T' | 'F';
-    naverpay_type?: 'C' | 'O';
-    use_kakaopay?: 'T' | 'F';
-    manufacturer_code?: string;
-    supplier_code?: string;
-    brand_code?: string;
-    trend_code?: string;
-    product_weight?: string;
-    expiration_date?: {
-      start_date: string;
-      end_date: string;
-    };
-    icon?: string[];
-    hscode?: string;
-    country_hscode?: Record<string, string>;
-    shipping_scope?: 'A' | 'C' | 'B';
-    shipping_fee_by_product?: 'T' | 'F';
-    shipping_method?: string;
-    shipping_period?: {
-      minimum: number;
-      maximum: number;
-    };
-    shipping_area?: string;
-    shipping_fee_type?: 'T' | 'R' | 'M' | 'D' | 'W' | 'C' | 'N';
-    shipping_rates?: Array<{
-      shipping_rates_min: string;
-      shipping_rates_max: string;
-      shipping_fee: string;
-    }>;
-    product_material?: string;
-    translate_product_material?: 'T' | 'F';
-    english_product_material?: string;
-    cloth_fabric?: 'woven' | 'knit';
-    classification_code?: string;
-    additional_price?: string;
-    margin_rate?: string;
-    tax_type?: 'A' | 'B' | 'C';
-    tax_rate?: number;
-    prepaid_shipping_fee?: 'C' | 'P' | 'B';
-    origin_classification?: 'F' | 'T' | 'E';
-    origin_place_no?: number;
-    made_in_code?: string;
-    additional_image?: Array<{
-      big: string;
-      medium: string;
-      small: string;
-    }>;
-    exposure_limit_type?: 'A' | 'M';
-    exposure_group_list?: number[];
-  };
+  product: Product;
 }
 
 export interface DeleteProductRequest {
