@@ -86,7 +86,7 @@
 - [ ] Orders cancellation
 - [ ] Orders exchange
 - [ ] Orders exchangerequests
-- [ ] Orders items
+- [x] Orders items
 - [ ] Orders items labels
 - [ ] Orders items options
 - [ ] Orders memos

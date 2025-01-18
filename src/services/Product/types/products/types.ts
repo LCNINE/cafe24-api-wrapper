@@ -1,4 +1,4 @@
-import { UnionToIntersection } from "../../utils/helperTypes"
+import { UnionToIntersection } from "../../../../utils/helperTypes"
 
 export type ProductGetOneOptions<E extends Embed[]> = {
   embed?: E
