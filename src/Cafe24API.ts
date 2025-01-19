@@ -1,4 +1,7 @@
 import { OAuthService } from "./services/OAuth"
+import { OrdersService } from "./services/Order/Orders"
+import { OrdersCancellationService } from "./services/Order/OrdersCancellation"
+import { OrdersItemsService } from "./services/Order/OrdersItems"
 import { ProductsService } from "./services/Product/Products"
 import { AdminClient, HttpClient, OAuthClient } from "./utils/HttpClients"
 
@@ -15,6 +18,9 @@ export class Cafe24API {
   private oAuthClient: OAuthClient
 
   public products: ProductsService
+  public orders: OrdersService
+  public ordersCancellation: OrdersCancellationService
+  public ordersItems: OrdersItemsService
   public oAuth: OAuthService
 
   constructor(options: Cafe24APIOptions) {
@@ -33,6 +39,10 @@ export class Cafe24API {
     const adminClientInstance = this.adminClient.instance
 
     this.products = new ProductsService(adminClientInstance)
+    
+    this.orders = new OrdersService(adminClientInstance)
+    this.ordersCancellation = new OrdersCancellationService(adminClientInstance)
+    this.ordersItems = new OrdersItemsService(adminClientInstance)
 
     this.oAuth = new OAuthService(this.oAuthClient.instance)
   }

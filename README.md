@@ -83,7 +83,7 @@
 - [ ] Orders autocalculation
 - [ ] Orders buyer
 - [ ] Orders buyer history
-- [ ] Orders cancellation
+- [x] Orders cancellation
 - [ ] Orders exchange
 - [ ] Orders exchangerequests
 - [x] Orders items

@@ -1,4 +1,5 @@
 import { UnionToIntersection } from "../../../../utils/helperTypes"
+import { OrderCancellation } from "../ordersCancellation/types"
 import { OrderItem } from "../ordersItems/types"
 import { Order } from "./types"
 
@@ -15,6 +16,7 @@ export type OrderEmbedFields = {
   return: {
   }
   cancellation: {
+    cancellation: OrderCancellation[]
   }
   exchange: {
   }
