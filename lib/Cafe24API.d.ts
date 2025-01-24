@@ -1,3 +1,4 @@
+import { PointsService } from "./services/Mileage/Points";
 import { OAuthService } from "./services/OAuth";
 import { OrdersService } from "./services/Order/Orders";
 import { OrdersCancellationService } from "./services/Order/OrdersCancellation";
@@ -17,6 +18,7 @@ export declare class Cafe24API {
     orders: OrdersService;
     ordersCancellation: OrdersCancellationService;
     ordersItems: OrdersItemsService;
+    points: PointsService;
     oAuth: OAuthService;
     constructor(options: Cafe24APIOptions);
 }

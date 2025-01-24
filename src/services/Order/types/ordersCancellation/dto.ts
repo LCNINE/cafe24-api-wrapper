@@ -27,7 +27,7 @@ export type CreateAnOrderCancellationReq = {
     claim_reason_type?: CancelReasonType,
     naverpay_cancel_reason_type?: string,
     kakaopay_cancel_reason_type?: string,
-    refund_method_code?: RefundMethodCode,
+    refund_method_code?: RefundMethodCode[],
     refund_bank_code?: string,
     refund_bank_name?: string,
     refund_bank_account_no?: string,
