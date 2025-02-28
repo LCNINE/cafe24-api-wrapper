@@ -336,7 +336,7 @@ export type EmbedFields = {
   hits: { hits: number },
   seo: { seo: Seo },
   tags: { tags: Tags },
-  additionalimages: { additionalimages: AdditionalImage[] },
+  additionalimages: { additionalimages: AdditionalImage[] } | null,
   decorationimages: { decorationimages: DecorationImages },
   discountprice: { discountprice: DiscountPrice },
   // benefits: { benefits: Benefit[] }
