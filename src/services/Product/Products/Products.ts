@@ -1,8 +1,9 @@
 import { AxiosInstance } from "axios"
-import { UnionToIntersection } from "../../utils/helperTypes"
-import { queryMapToString } from "../../utils/query"
-import { AbstractService } from ".."
-import { CreateProductRequest, CreateProductResponse, DeleteProductRequest, DeleteProductResponse, Embed, ProductGetListOptions, ProductGetOneOptions, ProductWithEmbed } from "./types/products/types"
+import { UnionToIntersection } from "../../../utils/helperTypes"
+import { queryMapToString } from "../../../utils/query"
+import { AbstractService } from "../.."
+import { CreateProductRequest, CreateProductResponse, DeleteProductRequest, DeleteProductResponse, Embed, ProductGetListOptions, ProductGetOneOptions, ProductWithEmbed } from "./types"
+import { RetrieveACountOfProductsOptions, RetrieveACountOfProductsResponse } from "./dto"
 
 export class ProductsService extends AbstractService {
   constructor(client: AxiosInstance) {
@@ -23,6 +24,14 @@ export class ProductsService extends AbstractService {
 
     const res = await this.client.get<{ products: ProductWithEmbed<E>[] }>(url)
     return res.data.products
+  }
+
+  public async retrieveACountOfProducts(options?: RetrieveACountOfProductsOptions) {
+    const queryMap = new Map(Object.entries(options ?? {}))
+    const url = `products/count` + queryMapToString(queryMap)
+
+    const res = await this.client.get<RetrieveACountOfProductsResponse>(url)
+    return res.data.count
   }
 
   public async createAProduct(data: CreateProductRequest) {

@@ -3,7 +3,11 @@ import { OAuthService } from "./services/OAuth"
 import { OrdersService } from "./services/Order/Orders"
 import { OrdersCancellationService } from "./services/Order/OrdersCancellation"
 import { OrdersItemsService } from "./services/Order/OrdersItems"
-import { ProductsService } from "./services/Product/Products"
+import { ProductsService } from "./services/Product/Products/Products"
+import { ProductsAdditionalimagesService } from "./services/Product/ProductsAdditionalimages"
+import { ProductsImagesService } from "./services/Product/productsImages/Service"
+import { ProductsOptionsService } from "./services/Product/ProductsOptions/Service"
+import { ProductsVariantsService } from "./services/Product/ProductsVariants"
 import { AdminClient, HttpClient, OAuthClient } from "./utils/HttpClients"
 
 interface Cafe24APIOptions {
@@ -19,6 +23,11 @@ export class Cafe24API {
   private oAuthClient: OAuthClient
 
   public products: ProductsService
+  public productsOptions: ProductsOptionsService
+  public productsVariants: ProductsVariantsService
+  public productsImages: ProductsImagesService
+  public productsAdditionalimages: ProductsAdditionalimagesService
+
   public orders: OrdersService
   public ordersCancellation: OrdersCancellationService
   public ordersItems: OrdersItemsService
@@ -41,6 +50,10 @@ export class Cafe24API {
     const adminClientInstance = this.adminClient.instance
 
     this.products = new ProductsService(adminClientInstance)
+    this.productsOptions = new ProductsOptionsService(adminClientInstance)
+    this.productsVariants = new ProductsVariantsService(adminClientInstance)
+    this.productsImages = new ProductsImagesService(adminClientInstance)
+    this.productsAdditionalimages = new ProductsAdditionalimagesService(adminClientInstance)
     
     this.orders = new OrdersService(adminClientInstance)
     this.ordersCancellation = new OrdersCancellationService(adminClientInstance)

@@ -48,14 +48,14 @@
 - [ ] Categories products
 - [ ] Mains products
 - [ ] Products
-- [ ] Products additionalimages
+- [x] Products additionalimages
 - [ ] Products approve
 - [ ] Products customproperties
 - [ ] Products decorationimages
 - [ ] Products discountprice
 - [ ] Products hits
 - [ ] Products icons
-- [ ] Products images
+- [x] Products images
 - [ ] Products memos
 - [ ] Products options
 - [ ] Products seo
