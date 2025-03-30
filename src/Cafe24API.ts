@@ -1,3 +1,4 @@
+import { CustomersService } from "./services/Customer/Customers/Customers"
 import { PointsService } from "./services/Mileage/Points"
 import { OAuthService } from "./services/OAuth"
 import { OrdersService } from "./services/Order/Orders"
@@ -32,6 +33,8 @@ export class Cafe24API {
   public ordersCancellation: OrdersCancellationService
   public ordersItems: OrdersItemsService
   public points: PointsService
+  public customers: CustomersService
+
   public oAuth: OAuthService
 
   constructor(options: Cafe24APIOptions) {
@@ -58,6 +61,7 @@ export class Cafe24API {
     this.orders = new OrdersService(adminClientInstance)
     this.ordersCancellation = new OrdersCancellationService(adminClientInstance)
     this.ordersItems = new OrdersItemsService(adminClientInstance)
+    this.customers = new CustomersService(adminClientInstance)
 
     this.points = new PointsService(adminClientInstance)
 

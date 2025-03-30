@@ -10,6 +10,7 @@ interface AdminClientConfig {
     apiVersion: string;
 }
 export declare class AdminClient extends HttpClient {
+    private accessToken;
     constructor(cafe24Config: AdminClientConfig);
     private setupInterceptors;
     private handleError;

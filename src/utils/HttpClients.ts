@@ -23,6 +23,8 @@ interface AdminClientConfig {
   apiVersion: string,
 }
 export class AdminClient extends HttpClient {
+  private accessToken: string | null = null
+
   constructor(cafe24Config: AdminClientConfig) {
     super({
       baseURL: `https://${cafe24Config.mallId}.cafe24api.com/api/v2/admin/`,
@@ -40,6 +42,9 @@ export class AdminClient extends HttpClient {
       (config) => {
         if (config.headers["Authorization"]) {
           return config
+        }
+        if (this.accessToken) {
+          config.headers["Authorization"] = `Bearer ${this.accessToken}`
         }
         return this.getAccessToken().then((accessToken) => {
           config.headers["Authorization"] = `Bearer ${accessToken}`
@@ -78,6 +83,7 @@ export class AdminClient extends HttpClient {
     else if (response.status === 401) { // 엑세스 토큰이 잘못됨
       try {
         const newAccessToken = await this.getAccessToken()
+        this.accessToken = newAccessToken
         originalRequest.headers!["Authorization"] = `Bearer ${newAccessToken}`
         return this.client(originalRequest) 
       } catch (tokenError) {
