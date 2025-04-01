@@ -1,20 +1,30 @@
 {
   "name": "cafe24-api-typescript",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "keywords": ["cafe24", "api", "wrapper", "typescript"],
+  "keywords": [
+    "cafe24",
+    "api",
+    "wrapper",
+    "typescript"
+  ],
   "author": "PauseB",
   "license": "ISC",
   "description": "Cafe24 API를 간편하게 사용할 수 있는 래퍼 라이브러리입니다.",
-  "files": ["lib", "README.md"],
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "jsonwebtoken": "^9.0.2"
   }
 }
